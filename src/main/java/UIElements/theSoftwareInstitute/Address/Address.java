@@ -10,7 +10,7 @@ public class Address {
     @Id
     @Column(name="address_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int addressId;
+    Integer addressId;
 
     private
     @Column(name="address")
@@ -26,7 +26,7 @@ public class Address {
 
     private
     @Column(name = "city_id")
-    int cityId;
+    Integer cityId;
 
     private
     @Column(name = "postal_code")
@@ -42,11 +42,11 @@ public class Address {
 
     public Address() {}
 
-    public int getAddressId() {
+    public Integer getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(int addressId) {
+    public void setAddressId(Integer addressId) {
         this.addressId = addressId;
     }
 
@@ -74,11 +74,11 @@ public class Address {
         this.district = district;
     }
 
-    public int getCityId() {
+    public Integer getCityId() {
         return cityId;
     }
 
-    public void setCityId(int cityId) {
+    public void setCityId(Integer cityId) {
         this.cityId = cityId;
     }
 

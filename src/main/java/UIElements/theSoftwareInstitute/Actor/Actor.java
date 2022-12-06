@@ -10,7 +10,7 @@ public class Actor {
     @Id
     @Column(name="actor_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int actorId;
+    Integer actorId;
 
     private
     @Column(name="first_name")
@@ -27,11 +27,11 @@ public class Actor {
 
     }
 
-    public int getActorId() {
+    public Integer getActorId() {
         return actorId;
     }
 
-    public void setActorId(int actorId) {
+    public void setActorId(Integer actorId) {
         this.actorId = actorId;
     }
 

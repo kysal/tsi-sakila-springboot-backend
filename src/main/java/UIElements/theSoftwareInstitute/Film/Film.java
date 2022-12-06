@@ -9,7 +9,7 @@ public class Film {
     @Id
     @Column(name="film_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int filmId;
+    private Integer filmId;
 
     @Column(name = "title")
     private String title;
@@ -18,25 +18,25 @@ public class Film {
     private String description;
 
     @Column(name = "release_year")
-    private int releaseYear;
+    private Integer releaseYear;
 
     @Column(name = "language_id")
-    private int languageId;
+    private Integer languageId;
 
     @Column(name = "original_language_id")
-    private String originalLanguageId;
+    private Integer originalLanguageId;
 
     @Column(name = "rental_duration")
-    private int rentalDuration;
+    private Integer rentalDuration;
 
     @Column(name = "rental_rate")
-    private float rentalRate;
+    private Float rentalRate;
 
     @Column(name = "length")
-    private int length;
+    private Integer length;
 
     @Column(name = "replacement_cost")
-    private float replacementCost;
+    private Float replacementCost;
 
     @Column(name = "rating")
     private String rating;
@@ -46,7 +46,7 @@ public class Film {
 
     public Film() {}
 
-    public int getFilmId() {
+    public Integer getFilmId() {
         return filmId;
     }
 
@@ -70,7 +70,7 @@ public class Film {
         this.description = description;
     }
 
-    public int getReleaseYear() {
+    public Integer getReleaseYear() {
         return releaseYear;
     }
 
@@ -78,7 +78,7 @@ public class Film {
         this.releaseYear = releaseYear;
     }
 
-    public int getLanguageId() {
+    public Integer getLanguageId() {
         return languageId;
     }
 
@@ -86,15 +86,15 @@ public class Film {
         this.languageId = languageId;
     }
 
-    public String getOriginalLanguageId() {
+    public Integer getOriginalLanguageId() {
         return originalLanguageId;
     }
 
-    public void setOriginalLanguageId(String originalLanguageId) {
+    public void setOriginalLanguageId(Integer originalLanguageId) {
         this.originalLanguageId = originalLanguageId;
     }
 
-    public int getRentalDuration() {
+    public Integer getRentalDuration() {
         return rentalDuration;
     }
 
@@ -102,7 +102,7 @@ public class Film {
         this.rentalDuration = rentalDuration;
     }
 
-    public float getRentalRate() {
+    public Float getRentalRate() {
         return rentalRate;
     }
 
@@ -110,7 +110,7 @@ public class Film {
         this.rentalRate = rentalRate;
     }
 
-    public int getLength() {
+    public Integer getLength() {
         return length;
     }
 
@@ -118,7 +118,7 @@ public class Film {
         this.length = length;
     }
 
-    public float getReplacementCost() {
+    public Float getReplacementCost() {
         return replacementCost;
     }
 

@@ -10,28 +10,28 @@ public class FilmCategory {
     private
     @Id
     @Column(name="film_id")
-    int filmId;
+    Integer filmId;
 
     private
     @Id
     @Column(name="category_id")
-    int categoryId;
+    Integer categoryId;
 
     FilmCategory() {}
 
-    public int getFilmId() {
+    public Integer getFilmId() {
         return filmId;
     }
 
-    public void setFilmId(int filmId) {
+    public void setFilmId(Integer filmId) {
         this.filmId = filmId;
     }
 
-    public int getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 

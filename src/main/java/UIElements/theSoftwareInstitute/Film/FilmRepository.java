@@ -20,4 +20,5 @@ public interface FilmRepository extends JpaRepository<Film, Integer> {
 
     @Query(value = "SELECT a FROM Actor a INNER JOIN FilmActor fa ON fa.actorId = a.actorId WHERE fa.filmId = ?1")
     Iterable<Actor> findActorsInFilm(int filmId);
+
 }
