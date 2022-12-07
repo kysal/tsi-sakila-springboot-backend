@@ -1,22 +1,22 @@
 package UIElements.theSoftwareInstitute;
 
-import UIElements.theSoftwareInstitute.Actor.*;
-import UIElements.theSoftwareInstitute.Address.*;
-import UIElements.theSoftwareInstitute.Category.*;
-import UIElements.theSoftwareInstitute.Film.*;
-import UIElements.theSoftwareInstitute.FilmCategory.*;
-
+import UIElements.theSoftwareInstitute.Actor.ActorController;
+import UIElements.theSoftwareInstitute.Actor.ActorRepository;
+import UIElements.theSoftwareInstitute.Address.AddressController;
+import UIElements.theSoftwareInstitute.Address.AddressRepository;
+import UIElements.theSoftwareInstitute.Category.CategoryController;
+import UIElements.theSoftwareInstitute.Category.CategoryRepository;
+import UIElements.theSoftwareInstitute.Film.FilmController;
+import UIElements.theSoftwareInstitute.Film.FilmRepository;
+import UIElements.theSoftwareInstitute.FilmCategory.FilmCategory;
+import UIElements.theSoftwareInstitute.FilmCategory.FilmCategoryRepository;
+import UIElements.theSoftwareInstitute.FilmScore.FilmScoreController;
+import UIElements.theSoftwareInstitute.User.UserController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.ResourceAccessException;
-
-import java.rmi.ServerException;
 
 
 @RestController
@@ -24,10 +24,12 @@ import java.rmi.ServerException;
 @CrossOrigin
 @SpringBootApplication
 @ComponentScan(basePackageClasses = {
-		FilmController.class,
 		ActorController.class,
+		AddressController.class,
 		CategoryController.class,
-		AddressRepository.class
+		FilmController.class,
+		FilmScoreController.class,
+		UserController.class,
 })
 public class TheSoftwareInstituteApplication {
 
