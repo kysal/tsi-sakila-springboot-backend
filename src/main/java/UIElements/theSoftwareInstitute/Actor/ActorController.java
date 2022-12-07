@@ -1,6 +1,8 @@
 package UIElements.theSoftwareInstitute.Actor;
 
 import UIElements.theSoftwareInstitute.Film.Film;
+import UIElements.theSoftwareInstitute.Film.FilmRepository;
+import UIElements.theSoftwareInstitute.FilmActor.FilmActor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -8,15 +10,19 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.ResourceAccessException;
 
 import java.rmi.ServerException;
+import java.util.*;
 
 @RequestMapping("/actor")
 @RestController
 public class ActorController {
 
     private final ActorRepository repo;
+    private final FilmRepository filmRepository;
 
-    ActorController(ActorRepository actorRepository) {
+    ActorController(ActorRepository actorRepository,
+                    FilmRepository filmRepository) {
         this.repo = actorRepository;
+        this.filmRepository = filmRepository;
     }
 
     @GetMapping("")
@@ -51,6 +57,31 @@ public class ActorController {
     @GetMapping("/{actorId}/films")
     public @ResponseBody Iterable<Film> getFilmsWithActor(@PathVariable(value = "actorId") Integer actorId) {
         return repo.findFilmsWithActor(actorId);
+    }
+
+    @GetMapping("/{actorId}/costars")
+    public @ResponseBody Collection<Actor> getActorCostars(@PathVariable(value = "actorId") Integer actorId) {
+        Iterable<Film> films = getFilmsWithActor(actorId);
+
+        Iterable<FilmActor> filmActors = repo.findActorsInFilms(films);
+
+        HashMap<Integer, Actor> costars = new HashMap<>();
+
+        for (FilmActor filmActor : filmActors) {
+            Actor actor = filmActor.getActor();
+            if (Objects.equals(actor.getActorId(), actorId)) continue;
+
+            if (costars.containsKey(actor.getActorId())) {
+                Actor newActor = costars.get(actor.getActorId());
+                newActor.incrementRelations();
+                costars.put(actor.getActorId(), newActor);
+            } else {
+                filmActor.getActor().setRelations(1);
+                costars.put(actor.getActorId(), actor);
+            }
+        }
+
+        return costars.values();
     }
 
 }

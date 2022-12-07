@@ -1,6 +1,13 @@
 package UIElements.theSoftwareInstitute.Film;
 
+import UIElements.theSoftwareInstitute.Category.Category;
+import UIElements.theSoftwareInstitute.FilmCategory.FilmCategory;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name="film")
@@ -40,6 +47,10 @@ public class Film {
 
     @Column(name = "rating")
     private String rating;
+
+
+    @OneToMany(targetEntity = FilmCategory.class, mappedBy = "film", cascade = CascadeType.REMOVE ,fetch = FetchType.EAGER)
+    private List<FilmCategory> filmCategoryList = new ArrayList<>();
 
 //    @Column(name = "special_features")
 //
@@ -132,5 +143,26 @@ public class Film {
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+
+//    public List<FilmCategory> getFilmCategoryList() {
+//        return filmCategoryList;
+//    }
+//
+//    public void setFilmCategoryList(List<FilmCategory> filmCategoryList) {
+//        this.filmCategoryList = filmCategoryList;
+//    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Film film = (Film) o;
+        return Objects.equals(filmId, film.filmId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(filmId);
     }
 }

@@ -47,4 +47,9 @@ public class TheSoftwareInstituteApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TheSoftwareInstituteApplication.class, args);
 	}
+
+	@GetMapping("/test5")
+	public @ResponseBody Iterable<FilmCategory> getAllFilms() {
+		return filmCategoryRepo.findAll();
+	}
 }

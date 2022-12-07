@@ -20,6 +20,9 @@ public class Actor {
     @Column(name="last_name")
     String lastName;
 
+    private
+    Integer relations;
+
 //    @Column(name="last_update")
 
 
@@ -49,5 +52,18 @@ public class Actor {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Integer getRelations() {
+        return relations;
+    }
+
+    public void setRelations(Integer relations) {
+        this.relations = relations;
+    }
+
+    public void incrementRelations() {
+        if (this.relations == null) this.relations = 0;
+        this.relations++;
     }
 }
