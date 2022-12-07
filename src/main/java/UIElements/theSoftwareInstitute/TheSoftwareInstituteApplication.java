@@ -50,8 +50,4 @@ public class TheSoftwareInstituteApplication {
 		SpringApplication.run(TheSoftwareInstituteApplication.class, args);
 	}
 
-	@GetMapping("/test5")
-	public @ResponseBody Iterable<FilmCategory> getAllFilms() {
-		return filmCategoryRepo.findAll();
-	}
 }

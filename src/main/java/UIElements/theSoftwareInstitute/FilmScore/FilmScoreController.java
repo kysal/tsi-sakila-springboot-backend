@@ -26,7 +26,4 @@ public class FilmScoreController {
     public @ResponseBody Iterable<FilmScore> findUserRatings(@PathVariable(value = "userId") Integer userId) {
         return repo.findUserRatings(userId);
     }
-
-
-
 }
