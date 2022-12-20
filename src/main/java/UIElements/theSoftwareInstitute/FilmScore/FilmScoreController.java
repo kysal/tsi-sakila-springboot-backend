@@ -1,8 +1,11 @@
 package UIElements.theSoftwareInstitute.FilmScore;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/rating")
+@CrossOrigin(origins = "*")
 @RestController
 public class FilmScoreController {
 
@@ -17,9 +20,13 @@ public class FilmScoreController {
         return repo.findAll();
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/film/{filmId}")
-    public @ResponseBody Double getFilmRating(@PathVariable(value = "filmId") Integer filmId) {
-        return repo.getFilmRating(filmId);
+    public @ResponseBody ResponseEntity<Double> getFilmRating(@PathVariable(value = "filmId") Integer filmId) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Request-Method", "*");
+        Double score = repo.getFilmRating(filmId);
+        return ResponseEntity.ok().headers(headers).body(score == null ? 0d : score);
     }
 
     @GetMapping("/user/{userId}")

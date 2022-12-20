@@ -11,4 +11,5 @@ public interface FilmScoreRepository extends JpaRepository<FilmScore, Integer> {
     @Query(value = "SELECT fs FROM FilmScore fs WHERE fs.user.userId = ?1")
     Iterable<FilmScore> findUserRatings(Integer userId);
 
+
 }

@@ -1,5 +1,6 @@
 package UIElements.theSoftwareInstitute.User;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.client.ResourceAccessException;
 
 import java.rmi.ServerException;
 
+@CrossOrigin("*")
 @RequestMapping("/user")
 @RestController
 public class UserController {
@@ -47,9 +49,21 @@ public class UserController {
         } else return new ResponseEntity<>(null, HttpStatus.CONFLICT);
     }
 
+    @PostMapping(value = "/authenticate",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<User> authenticate(@RequestBody User loginUser) throws ServerException {
+        User dbUser = repo.findByUsername(loginUser.getUsername());
 
-//    @PostMapping("/authenticate")
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Request-Method", "*");
 
-
-
+        if (!(dbUser == null)) {
+            // NEED HASHING
+            if (dbUser.getPassword().equals(loginUser.getPassword())) {
+                return ResponseEntity.ok().headers(headers).body(dbUser);
+            } else return ResponseEntity.status(HttpStatus.FORBIDDEN).headers(headers).body(null);
+        } else return ResponseEntity.status(HttpStatus.FORBIDDEN).headers(headers).body(null);
+    }
 }

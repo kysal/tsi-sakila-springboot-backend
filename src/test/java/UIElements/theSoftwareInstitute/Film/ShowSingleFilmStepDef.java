@@ -1,4 +1,4 @@
-package UIElements.theSoftwareInstitute;
+package UIElements.theSoftwareInstitute.Film;
 
 import UIElements.theSoftwareInstitute.Film.Film;
 import UIElements.theSoftwareInstitute.Film.FilmRepository;

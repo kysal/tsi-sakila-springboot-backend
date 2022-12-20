@@ -1,8 +1,11 @@
 package UIElements.theSoftwareInstitute.Film;
 
 import UIElements.theSoftwareInstitute.Actor.Actor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
 
 public interface FilmRepository extends JpaRepository<Film, Integer> {
 
@@ -24,5 +27,11 @@ public interface FilmRepository extends JpaRepository<Film, Integer> {
 
     @Query(value = "SELECT a FROM Actor a INNER JOIN FilmActor fa ON fa.actor = a WHERE fa.film.filmId = ?1")
     Iterable<Actor> findActorsInFilm(int filmId);
+
+    @Query(value = "SELECT f FROM Film f WHERE f.title LIKE %?1%")
+    Iterable<Film> findAllWithTitleLike(String searchTerm);
+
+    @Query(value = "SELECT f FROM Film f WHERE f.title LIKE %?1%")
+    Page<Film> findAllWithTitleLike(String searchTerm, Pageable pageable);
 
 }

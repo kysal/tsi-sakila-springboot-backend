@@ -3,6 +3,7 @@ package UIElements.theSoftwareInstitute.Actor;
 import UIElements.theSoftwareInstitute.Film.Film;
 import UIElements.theSoftwareInstitute.Film.FilmRepository;
 import UIElements.theSoftwareInstitute.FilmActor.FilmActor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.client.ResourceAccessException;
 import java.rmi.ServerException;
 import java.util.*;
 
+@CrossOrigin(origins = "*")
 @RequestMapping("/actor")
 @RestController
 public class ActorController {
@@ -31,8 +33,10 @@ public class ActorController {
     }
 
     @GetMapping("/{actorId}")
-    public Actor getActorByID(@PathVariable(value = "actorId") int actorId) {
-        return repo.findById(actorId).orElseThrow(() -> new ResourceAccessException("Actor ID doesn't exist"));
+    public ResponseEntity<Actor> getActorByID(@PathVariable(value = "actorId") int actorId) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Request-Method", "*");
+        return ResponseEntity.ok().headers(headers).body(repo.findById(actorId).orElseThrow(() -> new ResourceAccessException("Actor ID doesn't exist")));
     }
 
     @PutMapping("/{actorId}")
@@ -55,13 +59,15 @@ public class ActorController {
     }
 
     @GetMapping("/{actorId}/films")
-    public @ResponseBody Iterable<Film> getFilmsWithActor(@PathVariable(value = "actorId") Integer actorId) {
-        return repo.findFilmsWithActor(actorId);
+    public @ResponseBody ResponseEntity<Iterable<Film>> getFilmsWithActor(@PathVariable(value = "actorId") Integer actorId) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Request-Method", "*");
+        return ResponseEntity.ok().headers(headers).body(repo.findFilmsWithActor(actorId));
     }
 
     @GetMapping("/{actorId}/costars")
-    public @ResponseBody Collection<Actor> getActorCostars(@PathVariable(value = "actorId") Integer actorId) {
-        Iterable<Film> films = getFilmsWithActor(actorId);
+    public @ResponseBody ResponseEntity<Collection<Actor>> getActorCostars(@PathVariable(value = "actorId") Integer actorId) {
+        Iterable<Film> films = getFilmsWithActor(actorId).getBody();
 
         Iterable<FilmActor> filmActors = repo.findActorsInFilms(films);
 
@@ -80,8 +86,14 @@ public class ActorController {
                 costars.put(actor.getActorId(), actor);
             }
         }
+        List<Actor> values = new ArrayList<>(costars.values());
+        values.sort(Comparator.comparing(Actor::getRelations));
+        Collections.reverse(values);
 
-        return costars.values();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Request-Method", "*");
+
+        return ResponseEntity.ok().headers(headers).body(values);
     }
 
 }

@@ -8,7 +8,6 @@ import UIElements.theSoftwareInstitute.Category.CategoryController;
 import UIElements.theSoftwareInstitute.Category.CategoryRepository;
 import UIElements.theSoftwareInstitute.Film.FilmController;
 import UIElements.theSoftwareInstitute.Film.FilmRepository;
-import UIElements.theSoftwareInstitute.FilmCategory.FilmCategory;
 import UIElements.theSoftwareInstitute.FilmCategory.FilmCategoryRepository;
 import UIElements.theSoftwareInstitute.FilmScore.FilmScoreController;
 import UIElements.theSoftwareInstitute.User.UserController;

@@ -1,4 +1,4 @@
-package UIElements.theSoftwareInstitute;
+package UIElements.theSoftwareInstitute.Actor;
 
 import UIElements.theSoftwareInstitute.Actor.Actor;
 import UIElements.theSoftwareInstitute.Actor.ActorRepository;
