@@ -48,6 +48,7 @@ public class DataSourceConfiguration {
 
         String secretName = "Applications/tsi/MySQL-RDS-Database";
         Region region = Region.of("us-east-1");
+
         AwsCredentialsProvider credentialsProvider = StaticCredentialsProvider.create(AwsBasicCredentials.create(accessKey, secretKey));
         SecretsManagerClient client = SecretsManagerClient.builder()
                 .region(region)
