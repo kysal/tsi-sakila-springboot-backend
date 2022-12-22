@@ -4,5 +4,5 @@ cloud:
       static: us-east-1
       auto: false
     credentials:
-      access-key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      secret-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      access-key: ${{ env.AWS_ACCESS_KEY_ID }}
+      secret-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
