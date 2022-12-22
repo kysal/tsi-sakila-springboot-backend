@@ -44,11 +44,11 @@ public class FilmController {
 
     @GetMapping(&quot;/page/{page}/search/{term}&quot;)
     public @ResponseBody ResponseEntity&lt;Page&lt;Film&gt;&gt; getFilms(@PathVariable(value = &quot;term&quot;) String searchTerm, @PathVariable(value = &quot;page&quot;) Integer page) {
-<span class="nc" id="L47">        Pageable pageable = PageRequest.of(page, 20);</span>
+<span class="fc" id="L47">        Pageable pageable = PageRequest.of(page, 20);</span>
 
-<span class="nc" id="L49">        HttpHeaders headers = new HttpHeaders();</span>
-<span class="nc" id="L50">        headers.set(&quot;Access-Control-Request-Method&quot;, &quot;*&quot;);</span>
-<span class="nc" id="L51">        return ResponseEntity.ok().headers(headers).body(repo.findAllWithTitleLike(searchTerm, pageable));</span>
+<span class="fc" id="L49">        HttpHeaders headers = new HttpHeaders();</span>
+<span class="fc" id="L50">        headers.set(&quot;Access-Control-Request-Method&quot;, &quot;*&quot;);</span>
+<span class="fc" id="L51">        return ResponseEntity.ok().headers(headers).body(repo.findAllWithTitleLike(searchTerm, pageable));</span>
     }
 
     @CrossOrigin(origins = &quot;*&quot;)

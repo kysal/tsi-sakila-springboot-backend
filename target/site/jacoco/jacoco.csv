@@ -8,7 +8,7 @@ theSoftwareInstitute,UIElements.theSoftwareInstitute.Category,Category,14,3,0,0,
 theSoftwareInstitute,UIElements.theSoftwareInstitute.User,UserController,49,68,4,4,6,16,8,3,4,3
 theSoftwareInstitute,UIElements.theSoftwareInstitute.User,User,0,38,0,0,0,16,0,11,0,11
 theSoftwareInstitute,UIElements.theSoftwareInstitute.Film,Film,32,92,6,0,5,35,5,23,2,23
-theSoftwareInstitute,UIElements.theSoftwareInstitute.Film,FilmController,149,29,2,0,24,7,13,2,12,2
+theSoftwareInstitute,UIElements.theSoftwareInstitute.Film,FilmController,125,53,2,0,20,11,12,3,11,3
 theSoftwareInstitute,UIElements.theSoftwareInstitute.Actor,Actor,16,36,1,1,6,11,4,7,3,7
 theSoftwareInstitute,UIElements.theSoftwareInstitute.Actor,ActorController,81,120,2,6,12,27,7,6,6,3
 theSoftwareInstitute,UIElements.theSoftwareInstitute.Address,AddressController,4,6,0,0,1,3,1,1,1,1
