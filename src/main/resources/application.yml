@@ -1,8 +1,8 @@
-cloud:
-  aws:
-    region:
-      static: us-east-1
-      auto: false
-    credentials:
-      access-key: ${ secrets.AWS_ACCESS_KEY_ID }
-      secret-key: ${ secrets.AWS_SECRET_ACCESS_KEY }
+#cloud:
+#  aws:
+#    region:
+#      static: us-east-1
+#      auto: false
+#    credentials:
+#      access-key: ${ secrets.AWS_ACCESS_KEY_ID }
+#      secret-key: ${ secrets.AWS_SECRET_ACCESS_KEY }
