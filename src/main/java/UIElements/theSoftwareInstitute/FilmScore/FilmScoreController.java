@@ -1,8 +1,13 @@
 package UIElements.theSoftwareInstitute.FilmScore;
 
+import UIElements.theSoftwareInstitute.Film.Film;
+import UIElements.theSoftwareInstitute.User.User;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.rmi.ServerException;
 
 @RequestMapping("/rating")
 @CrossOrigin(origins = "*")
@@ -27,6 +32,46 @@ public class FilmScoreController {
         headers.add("Access-Control-Request-Method", "*");
         Double score = repo.getFilmRating(filmId);
         return ResponseEntity.ok().headers(headers).body(score == null ? 0d : score);
+    }
+
+    @GetMapping("/film/{filmId}/user/{userId}")
+    public @ResponseBody ResponseEntity<Integer> getSingleFilmScore(@PathVariable(value = "filmId") Integer filmId, @PathVariable(value = "userId") Integer userId) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Request-Method", "*");
+        Integer score = repo.getSingleUserRating(filmId, userId);
+        return ResponseEntity.ok().headers(headers).body(score);
+    }
+
+    @PostMapping(value = "/add",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<FilmScore> addNewFilmScore(@RequestBody FilmScore filmScore) throws ServerException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Request-Method", "*");
+
+        System.out.println(filmScore);
+
+        FilmScore fs = repo.save(filmScore);
+        if (fs == null) throw new ServerException("Server failed");
+        else return ResponseEntity.ok().headers(headers).body(fs);
+    }
+
+    @PutMapping(value = "/add",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> updateFilmScore(@RequestBody FilmScore filmScore) throws ServerException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Request-Method", "*");
+        repo.updateUserRating(filmScore.getScore(), filmScore.getFilm().getFilmId(), filmScore.getUser().getUserId());
+        return ResponseEntity.ok().headers(headers).body(true);
+    }
+
+    @DeleteMapping(value = "/film/{filmId}/user/{userId}")
+    public ResponseEntity<Boolean> deleteFilmScore(@PathVariable(value = "filmId") Integer filmId, @PathVariable(value = "userId") Integer userId) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Request-Method", "*");
+        repo.deleteUserRating(filmId, userId);
+        return ResponseEntity.ok().headers(headers).body(true);
     }
 
     @GetMapping("/user/{userId}")

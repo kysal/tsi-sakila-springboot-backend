@@ -11,6 +11,7 @@ import UIElements.theSoftwareInstitute.Film.FilmRepository;
 import UIElements.theSoftwareInstitute.FilmCategory.FilmCategoryRepository;
 import UIElements.theSoftwareInstitute.FilmScore.FilmScoreController;
 import UIElements.theSoftwareInstitute.User.UserController;
+import UIElements.theSoftwareInstitute.config.DataSourceConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,14 +23,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/home")
 @CrossOrigin
 @SpringBootApplication
-@ComponentScan(basePackageClasses = {
-		ActorController.class,
-		AddressController.class,
-		CategoryController.class,
-		FilmController.class,
-		FilmScoreController.class,
-		UserController.class,
-})
 public class TheSoftwareInstituteApplication {
 
 	@Autowired

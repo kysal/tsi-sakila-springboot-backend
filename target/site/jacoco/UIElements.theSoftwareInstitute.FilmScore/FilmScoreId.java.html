@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FilmScoreId.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">theSoftwareInstitute</a> &gt; <a href="index.source.html" class="el_package">UIElements.theSoftwareInstitute.FilmScore</a> &gt; <span class="el_source">FilmScoreId.java</span></div><h1>FilmScoreId.java</h1><pre class="source lang-java linenums">package UIElements.theSoftwareInstitute.FilmScore;
+
+import UIElements.theSoftwareInstitute.Film.Film;
+import UIElements.theSoftwareInstitute.User.User;
+
+import java.io.Serializable;
+import java.util.Objects;
+
+public class FilmScoreId implements Serializable {
+
+    private Film film;
+    private User user;
+
+<span class="fc" id="L14">    public FilmScoreId() {}</span>
+
+<span class="fc" id="L16">    public FilmScoreId(Film film, User user) {</span>
+<span class="fc" id="L17">        this.film = film;</span>
+<span class="fc" id="L18">        this.user = user;</span>
+<span class="fc" id="L19">    }</span>
+
+    @Override
+    public boolean equals(Object o) {
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        if (this == o) return true;</span>
+<span class="pc bpc" id="L24" title="1 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+<span class="fc" id="L25">        FilmScoreId that = (FilmScoreId) o;</span>
+<span class="fc bfc" id="L26" title="All 4 branches covered.">        return film.getFilmId().equals(that.film.getFilmId()) &amp;&amp; user.getUserId().equals(that.user.getUserId());</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="fc" id="L31">        return Objects.hash(film.getFilmId(), user.getUserId());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

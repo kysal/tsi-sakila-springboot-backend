@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FilmCategory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">theSoftwareInstitute</a> &gt; <a href="index.source.html" class="el_package">UIElements.theSoftwareInstitute.FilmCategory</a> &gt; <span class="el_source">FilmCategory.java</span></div><h1>FilmCategory.java</h1><pre class="source lang-java linenums">package UIElements.theSoftwareInstitute.FilmCategory;
+
+import UIElements.theSoftwareInstitute.Category.Category;
+import UIElements.theSoftwareInstitute.Category.CategoryRepository;
+import UIElements.theSoftwareInstitute.Film.Film;
+import jakarta.persistence.*;
+
+@Entity
+@IdClass(NewFilmCategoryId.class)
+@Table(name=&quot;film_category&quot;)
+public class FilmCategory {
+
+//    private
+//    @Id
+//    @Column(name=&quot;film_id&quot;)
+//    Integer filmId;
+//
+//    private
+//    @Id
+//    @Column(name=&quot;category_id&quot;)
+//    Integer categoryId;
+
+    @Id
+    @ManyToOne()
+    @JoinColumn(name=&quot;film_id&quot;, referencedColumnName = &quot;film_id&quot;, insertable = false, updatable = false)
+    private Film film;
+
+    @Id
+    @ManyToOne()
+    @JoinColumn(name = &quot;category_id&quot;, referencedColumnName = &quot;category_id&quot;, insertable = false, updatable = false)
+    private Category category;
+
+<span class="fc" id="L33">    FilmCategory() {}</span>
+
+//    public Integer getFilmId() {
+//        return filmId;
+//    }
+//
+//    public void setFilmId(Integer filmId) {
+//        this.filmId = filmId;
+//    }
+//
+//    public Integer getCategoryId() {
+//        return categoryId;
+//    }
+//
+//    public void setCategoryId(Integer categoryId) {
+//        this.categoryId = categoryId;
+//    }
+
+    public Film getFilmId() {
+<span class="nc" id="L52">        return film;</span>
+    }
+
+    public void setFilmId(Film filmId) {
+<span class="nc" id="L56">        this.film = filmId;</span>
+<span class="nc" id="L57">    }</span>
+
+    public Category getCategoryId() {
+<span class="nc" id="L60">        return category;</span>
+    }
+
+    public void setCategoryId(Category categoryId) {
+<span class="nc" id="L64">        this.category = categoryId;</span>
+<span class="nc" id="L65">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -5,5 +5,5 @@ Feature: authenticate user login attempt
     Then the website will show "<firstName>" and "<lastName>" of user
     Examples:
       |  username | password | firstName | lastName |
-      | testuser1 |  invalid |      test |    user1 |
-      | testuser2 |  invalid |      test |    user2 |
+      | testuser1 |  password |      Test |    User |
+      | testuser2 |  password |      Test |    User |

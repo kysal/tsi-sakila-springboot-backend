@@ -21,7 +21,13 @@ public class FilmScore {
     @Column(name = "score")
     private Integer score;
 
-    FilmScore() {}
+    public FilmScore() {}
+
+    public FilmScore(Film film, User user, Integer score) {
+        this.film = film;
+        this.user = user;
+        this.score = score;
+    }
 
     public Film getFilm() {
         return film;

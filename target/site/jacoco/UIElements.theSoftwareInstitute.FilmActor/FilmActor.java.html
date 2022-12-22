@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FilmActor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">theSoftwareInstitute</a> &gt; <a href="index.source.html" class="el_package">UIElements.theSoftwareInstitute.FilmActor</a> &gt; <span class="el_source">FilmActor.java</span></div><h1>FilmActor.java</h1><pre class="source lang-java linenums">package UIElements.theSoftwareInstitute.FilmActor;
+
+import UIElements.theSoftwareInstitute.Actor.Actor;
+import UIElements.theSoftwareInstitute.Film.Film;
+import jakarta.persistence.*;
+
+@Entity
+@IdClass(NewFilmActorId.class)
+@Table(name = &quot;film_actor&quot;)
+public class FilmActor {
+
+//    @Id
+//    @Column(name = &quot;film_id&quot;)
+//    Integer filmId;
+//
+//    @Id
+//    @Column(name = &quot;actor_id&quot;)
+//    Integer actorId;
+
+    @Id
+    @ManyToOne()
+    @JoinColumn(name = &quot;film_id&quot;, referencedColumnName = &quot;film_id&quot;, insertable = false, updatable = false)
+    private Film film;
+
+    @Id
+    @ManyToOne()
+    @JoinColumn(name = &quot;actor_id&quot;, referencedColumnName = &quot;actor_id&quot;, insertable = false, updatable = false)
+    private Actor actor;
+
+<span class="fc" id="L30">    FilmActor() {}</span>
+
+//    public Integer getFilmId() {
+//        return filmId;
+//    }
+//
+//    public void setFilmId(Integer filmId) {
+//        this.filmId = filmId;
+//    }
+//
+//    public Integer getActorId() {
+//        return actorId;
+//    }
+//
+//    public void setActorId(Integer actorId) {
+//        this.actorId = actorId;
+//    }
+
+    public Film getFilm() {
+<span class="nc" id="L49">        return film;</span>
+    }
+
+    public void setFilm(Film filmId) {
+<span class="nc" id="L53">        this.film = filmId;</span>
+<span class="nc" id="L54">    }</span>
+
+    public Actor getActor() {
+<span class="fc" id="L57">        return actor;</span>
+    }
+
+    public void setActor(Actor actorId) {
+<span class="nc" id="L61">        this.actor = actorId;</span>
+<span class="nc" id="L62">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
