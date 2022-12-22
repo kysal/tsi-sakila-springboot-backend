@@ -1,6 +1,7 @@
 package UIElements.theSoftwareInstitute.stepdefs.Film;
 
 import UIElements.theSoftwareInstitute.Film.Film;
+import UIElements.theSoftwareInstitute.Film.FilmController;
 import UIElements.theSoftwareInstitute.Film.FilmRepository;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -17,6 +18,9 @@ public class ShowSingleFilmStepDef {
     @Autowired
     FilmRepository filmRepo;
 
+    @Autowired
+    FilmController filmController;
+
     Integer filmId;
 
     Film chosenFilm;
@@ -29,7 +33,7 @@ public class ShowSingleFilmStepDef {
 
     @When("requesting film details")
     public void requesting_film_details() {
-        this.chosenFilm = this.filmRepo.findById(this.filmId).orElseThrow(() -> new ResourceAccessException("Film ID doesn't exist"));
+        this.chosenFilm = filmController.getFilmById(this.filmId).getBody();
         Assertions.assertNotEquals(null, this.chosenFilm, "Film could not be retrieved");
     }
 

@@ -62,9 +62,9 @@ public class FilmController {
     @CrossOrigin(origins = &quot;*&quot;)
     @GetMapping(&quot;/{filmId}&quot;)
     public @ResponseBody ResponseEntity&lt;Film&gt; getFilmById(@PathVariable(value = &quot;filmId&quot;) Integer filmId) {
-<span class="nc" id="L65">        HttpHeaders headers = new HttpHeaders();</span>
-<span class="nc" id="L66">        headers.set(&quot;Access-Control-Request-Method&quot;, &quot;*&quot;);</span>
-<span class="nc" id="L67">        return ResponseEntity.ok().headers(headers).body(repo.findById(filmId).orElseThrow(() -&gt; new ResourceAccessException(&quot;Actor ID doesn't exist&quot;)));</span>
+<span class="fc" id="L65">        HttpHeaders headers = new HttpHeaders();</span>
+<span class="fc" id="L66">        headers.set(&quot;Access-Control-Request-Method&quot;, &quot;*&quot;);</span>
+<span class="pc" id="L67">        return ResponseEntity.ok().headers(headers).body(repo.findById(filmId).orElseThrow(() -&gt; new ResourceAccessException(&quot;Actor ID doesn't exist&quot;)));</span>
     }
 
     @PostMapping(value = &quot;&quot;,

@@ -145,6 +145,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>theSoftwareInstitute</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>

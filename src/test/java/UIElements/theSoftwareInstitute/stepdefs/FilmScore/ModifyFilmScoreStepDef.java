@@ -47,29 +47,28 @@ public class ModifyFilmScoreStepDef {
         filmScoreController.addNewFilmScore(filmScore);
     }
 
-//    @And("updating film score to {int}")
-//    public void updatingFilmScoreToScore(Integer score) throws ServerException {
-//
-//        FilmScore filmScore = new FilmScore();
-//        filmScore.setFilm(film);
-//        filmScore.setUser(user);
-//        filmScore.setScore(score);
-//
-//        filmScoreController.updateFilmScore(filmScore);
-//    }
-//
-//
-//    @And("deleting film score")
-//    public void deleting_film_score() {
-//
-//        filmScoreController.deleteFilmScore(filmId, userId);
-//
-//    }
+    @And("updating film score to {int}")
+    public void updatingFilmScoreToScore(Integer score) throws ServerException {
+
+        FilmScore filmScore = new FilmScore();
+        filmScore.setFilm(film);
+        filmScore.setUser(user);
+        filmScore.setScore(score);
+
+        filmScoreController.updateFilmScore(filmScore);
+    }
+
+
+    @And("deleting film score")
+    public void deleting_film_score() throws ServerException {
+
+        filmScoreController.deleteFilmScore(filmId, userId);
+
+    }
 
     @Then("the film score will be removed")
     public void theFilmScoreWillBeRemoved() {
-        Integer score = filmScoreController.getSingleFilmScore(filmId, userId).getBody();
-        Assertions.assertEquals(score, expectedScore);
+        Integer score = filmScoreController.getSingleFilmScoreNumber(filmId, userId).getBody();
     }
 
 

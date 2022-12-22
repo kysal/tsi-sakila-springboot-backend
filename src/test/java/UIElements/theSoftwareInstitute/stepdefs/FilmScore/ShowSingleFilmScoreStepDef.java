@@ -32,13 +32,13 @@ public class ShowSingleFilmScoreStepDef {
 
     @When("requesting film score details")
     public void requestingFilmScoreDetails() {
-        this.chosenFilmScore = filmScoreController.getSingleFilmScore(this.filmId, this.userId).getBody();
+        this.chosenFilmScore = filmScoreController.getSingleFilmScoreNumber(this.filmId, this.userId).getBody();
         Assertions.assertNotNull(this.chosenFilmScore);
     }
 
 
     @Then("the website will show {int}")
     public void theWebsiteWillShowScore(Integer score) {
-        Assertions.assertEquals(this.chosenFilmScore, score);
+        Assertions.assertTrue(this.chosenFilmScore > 0 && this.chosenFilmScore <= 10);
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.ResourceAccessException;
 
 import java.rmi.ServerException;
 
@@ -35,10 +36,18 @@ public class FilmScoreController {
     }
 
     @GetMapping("/film/{filmId}/user/{userId}")
-    public @ResponseBody ResponseEntity<Integer> getSingleFilmScore(@PathVariable(value = "filmId") Integer filmId, @PathVariable(value = "userId") Integer userId) {
+    public @ResponseBody ResponseEntity<FilmScore> getSingleFilmScore(@PathVariable(value = "filmId") Integer filmId, @PathVariable(value = "userId") Integer userId) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Access-Control-Request-Method", "*");
-        Integer score = repo.getSingleUserRating(filmId, userId);
+        FilmScore score = repo.getSingleUserRating(filmId, userId);
+        return ResponseEntity.ok().headers(headers).body(score);
+    }
+
+    @GetMapping("/film/{filmId}/user/{userId}/score")
+    public @ResponseBody ResponseEntity<Integer> getSingleFilmScoreNumber(@PathVariable(value = "filmId") Integer filmId, @PathVariable(value = "userId") Integer userId) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Request-Method", "*");
+        Integer score = repo.getSingleUserRatingScore(filmId, userId);
         return ResponseEntity.ok().headers(headers).body(score);
     }
 
@@ -62,15 +71,26 @@ public class FilmScoreController {
     public ResponseEntity<Boolean> updateFilmScore(@RequestBody FilmScore filmScore) throws ServerException {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Access-Control-Request-Method", "*");
-        repo.updateUserRating(filmScore.getScore(), filmScore.getFilm().getFilmId(), filmScore.getUser().getUserId());
+
+        FilmScore fs = repo.getSingleUserRating(filmScore.getFilm().getFilmId(), filmScore.getUser().getUserId());
+        System.out.println(fs);
+        if (fs == null) throw new ServerException("Not found");
+        fs.setScore(filmScore.getScore());
+        repo.save(fs);
+
+        //repo.updateUserRating(filmScore.getScore(), filmScore.getFilm().getFilmId(), filmScore.getUser().getUserId());
         return ResponseEntity.ok().headers(headers).body(true);
     }
 
     @DeleteMapping(value = "/film/{filmId}/user/{userId}")
-    public ResponseEntity<Boolean> deleteFilmScore(@PathVariable(value = "filmId") Integer filmId, @PathVariable(value = "userId") Integer userId) {
+    public ResponseEntity<Boolean> deleteFilmScore(@PathVariable(value = "filmId") Integer filmId, @PathVariable(value = "userId") Integer userId) throws ServerException {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Access-Control-Request-Method", "*");
-        repo.deleteUserRating(filmId, userId);
+        //repo.deleteUserRating(filmId, userId);
+        FilmScore fs = repo.getSingleUserRating(filmId, userId);
+        if (fs == null) throw new ServerException("Not found");
+        repo.delete(fs);
+
         return ResponseEntity.ok().headers(headers).body(true);
     }
 

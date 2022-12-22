@@ -12,22 +12,22 @@ public class NewFilmActorId implements Serializable {
 
 <span class="fc" id="L13">    public NewFilmActorId() {}</span>
 
-<span class="nc" id="L15">    public NewFilmActorId(Film film, Actor actor) {</span>
-<span class="nc" id="L16">        this.film = film;</span>
-<span class="nc" id="L17">        this.actor = actor;</span>
-<span class="nc" id="L18">    }</span>
+<span class="fc" id="L15">    public NewFilmActorId(Film film, Actor actor) {</span>
+<span class="fc" id="L16">        this.film = film;</span>
+<span class="fc" id="L17">        this.actor = actor;</span>
+<span class="fc" id="L18">    }</span>
 
     @Override
     public boolean equals(Object o) {
-<span class="nc bnc" id="L22" title="All 2 branches missed.">        if (this == o) return true;</span>
-<span class="nc bnc" id="L23" title="All 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
-<span class="nc" id="L24">        NewFilmActorId that = (NewFilmActorId) o;</span>
-<span class="nc bnc" id="L25" title="All 4 branches missed.">        return Objects.equals(film, that.film) &amp;&amp; Objects.equals(actor, that.actor);</span>
+<span class="fc bfc" id="L22" title="All 2 branches covered.">        if (this == o) return true;</span>
+<span class="pc bpc" id="L23" title="1 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+<span class="fc" id="L24">        NewFilmActorId that = (NewFilmActorId) o;</span>
+<span class="fc bfc" id="L25" title="All 4 branches covered.">        return Objects.equals(film.getFilmId(), that.film.getFilmId()) &amp;&amp; Objects.equals(actor.getActorId(), that.actor.getActorId());</span>
     }
 
     @Override
     public int hashCode() {
-<span class="nc" id="L30">        return Objects.hash(film, actor);</span>
+<span class="fc" id="L30">        return Objects.hash(film.getFilmId(), actor.getActorId());</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

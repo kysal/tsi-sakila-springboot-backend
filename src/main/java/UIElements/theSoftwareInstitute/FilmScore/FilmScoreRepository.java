@@ -12,8 +12,11 @@ public interface FilmScoreRepository extends JpaRepository<FilmScore, Integer> {
     @Query(value = "SELECT fs FROM FilmScore fs WHERE fs.user.userId = ?1")
     Iterable<FilmScore> findUserRatings(Integer userId);
 
+    @Query(value = "SELECT fs FROM FilmScore fs WHERE fs.film.filmId = ?1 AND fs.user.userId = ?2")
+    FilmScore getSingleUserRating(Integer filmId, Integer userId);
+
     @Query(value = "SELECT fs.score FROM FilmScore fs WHERE fs.film.filmId = ?1 AND fs.user.userId = ?2")
-    Integer getSingleUserRating(Integer filmId, Integer userId);
+    Integer getSingleUserRatingScore(Integer filmId, Integer userId);
 
     @Modifying
     @Query(value = "DELETE FROM FilmScore fs WHERE fs.film.filmId = ?1 AND fs.user.userId = ?2")

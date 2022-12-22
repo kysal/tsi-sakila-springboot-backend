@@ -6,6 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.ResourceAccessException;
 
 import java.rmi.ServerException;
 
@@ -16,67 +17,86 @@ public class FilmScoreController {
 
     private final FilmScoreRepository repo;
 
-<span class="fc" id="L19">    FilmScoreController(FilmScoreRepository filmScoreRepository) {</span>
-<span class="fc" id="L20">        this.repo = filmScoreRepository;</span>
-<span class="fc" id="L21">    }</span>
+<span class="fc" id="L20">    FilmScoreController(FilmScoreRepository filmScoreRepository) {</span>
+<span class="fc" id="L21">        this.repo = filmScoreRepository;</span>
+<span class="fc" id="L22">    }</span>
 
     @GetMapping(&quot;&quot;)
     public @ResponseBody Iterable&lt;FilmScore&gt; getAllRatings() {
-<span class="nc" id="L25">        return repo.findAll();</span>
+<span class="nc" id="L26">        return repo.findAll();</span>
     }
 
     @CrossOrigin(origins = &quot;*&quot;)
     @GetMapping(&quot;/film/{filmId}&quot;)
     public @ResponseBody ResponseEntity&lt;Double&gt; getFilmRating(@PathVariable(value = &quot;filmId&quot;) Integer filmId) {
-<span class="nc" id="L31">        HttpHeaders headers = new HttpHeaders();</span>
-<span class="nc" id="L32">        headers.add(&quot;Access-Control-Request-Method&quot;, &quot;*&quot;);</span>
-<span class="nc" id="L33">        Double score = repo.getFilmRating(filmId);</span>
-<span class="nc bnc" id="L34" title="All 2 branches missed.">        return ResponseEntity.ok().headers(headers).body(score == null ? 0d : score);</span>
+<span class="nc" id="L32">        HttpHeaders headers = new HttpHeaders();</span>
+<span class="nc" id="L33">        headers.add(&quot;Access-Control-Request-Method&quot;, &quot;*&quot;);</span>
+<span class="nc" id="L34">        Double score = repo.getFilmRating(filmId);</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">        return ResponseEntity.ok().headers(headers).body(score == null ? 0d : score);</span>
     }
 
     @GetMapping(&quot;/film/{filmId}/user/{userId}&quot;)
-    public @ResponseBody ResponseEntity&lt;Integer&gt; getSingleFilmScore(@PathVariable(value = &quot;filmId&quot;) Integer filmId, @PathVariable(value = &quot;userId&quot;) Integer userId) {
-<span class="fc" id="L39">        HttpHeaders headers = new HttpHeaders();</span>
-<span class="fc" id="L40">        headers.add(&quot;Access-Control-Request-Method&quot;, &quot;*&quot;);</span>
-<span class="fc" id="L41">        Integer score = repo.getSingleUserRating(filmId, userId);</span>
-<span class="fc" id="L42">        return ResponseEntity.ok().headers(headers).body(score);</span>
+    public @ResponseBody ResponseEntity&lt;FilmScore&gt; getSingleFilmScore(@PathVariable(value = &quot;filmId&quot;) Integer filmId, @PathVariable(value = &quot;userId&quot;) Integer userId) {
+<span class="nc" id="L40">        HttpHeaders headers = new HttpHeaders();</span>
+<span class="nc" id="L41">        headers.add(&quot;Access-Control-Request-Method&quot;, &quot;*&quot;);</span>
+<span class="nc" id="L42">        FilmScore score = repo.getSingleUserRating(filmId, userId);</span>
+<span class="nc" id="L43">        return ResponseEntity.ok().headers(headers).body(score);</span>
+    }
+
+    @GetMapping(&quot;/film/{filmId}/user/{userId}/score&quot;)
+    public @ResponseBody ResponseEntity&lt;Integer&gt; getSingleFilmScoreNumber(@PathVariable(value = &quot;filmId&quot;) Integer filmId, @PathVariable(value = &quot;userId&quot;) Integer userId) {
+<span class="fc" id="L48">        HttpHeaders headers = new HttpHeaders();</span>
+<span class="fc" id="L49">        headers.add(&quot;Access-Control-Request-Method&quot;, &quot;*&quot;);</span>
+<span class="fc" id="L50">        Integer score = repo.getSingleUserRatingScore(filmId, userId);</span>
+<span class="fc" id="L51">        return ResponseEntity.ok().headers(headers).body(score);</span>
     }
 
     @PostMapping(value = &quot;/add&quot;,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity&lt;FilmScore&gt; addNewFilmScore(@RequestBody FilmScore filmScore) throws ServerException {
-<span class="fc" id="L49">        HttpHeaders headers = new HttpHeaders();</span>
-<span class="fc" id="L50">        headers.add(&quot;Access-Control-Request-Method&quot;, &quot;*&quot;);</span>
+<span class="fc" id="L58">        HttpHeaders headers = new HttpHeaders();</span>
+<span class="fc" id="L59">        headers.add(&quot;Access-Control-Request-Method&quot;, &quot;*&quot;);</span>
 
-<span class="fc" id="L52">        System.out.println(filmScore);</span>
+<span class="fc" id="L61">        System.out.println(filmScore);</span>
 
-<span class="fc" id="L54">        FilmScore fs = repo.save(filmScore);</span>
-<span class="pc bpc" id="L55" title="1 of 2 branches missed.">        if (fs == null) throw new ServerException(&quot;Server failed&quot;);</span>
-<span class="fc" id="L56">        else return ResponseEntity.ok().headers(headers).body(fs);</span>
+<span class="fc" id="L63">        FilmScore fs = repo.save(filmScore);</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        if (fs == null) throw new ServerException(&quot;Server failed&quot;);</span>
+<span class="fc" id="L65">        else return ResponseEntity.ok().headers(headers).body(fs);</span>
     }
 
     @PutMapping(value = &quot;/add&quot;,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity&lt;Boolean&gt; updateFilmScore(@RequestBody FilmScore filmScore) throws ServerException {
-<span class="nc" id="L63">        HttpHeaders headers = new HttpHeaders();</span>
-<span class="nc" id="L64">        headers.add(&quot;Access-Control-Request-Method&quot;, &quot;*&quot;);</span>
-<span class="nc" id="L65">        repo.updateUserRating(filmScore.getScore(), filmScore.getFilm().getFilmId(), filmScore.getUser().getUserId());</span>
-<span class="nc" id="L66">        return ResponseEntity.ok().headers(headers).body(true);</span>
+<span class="fc" id="L72">        HttpHeaders headers = new HttpHeaders();</span>
+<span class="fc" id="L73">        headers.add(&quot;Access-Control-Request-Method&quot;, &quot;*&quot;);</span>
+
+<span class="fc" id="L75">        FilmScore fs = repo.getSingleUserRating(filmScore.getFilm().getFilmId(), filmScore.getUser().getUserId());</span>
+<span class="fc" id="L76">        System.out.println(fs);</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        if (fs == null) throw new ServerException(&quot;Not found&quot;);</span>
+<span class="fc" id="L78">        fs.setScore(filmScore.getScore());</span>
+<span class="fc" id="L79">        repo.save(fs);</span>
+
+        //repo.updateUserRating(filmScore.getScore(), filmScore.getFilm().getFilmId(), filmScore.getUser().getUserId());
+<span class="fc" id="L82">        return ResponseEntity.ok().headers(headers).body(true);</span>
     }
 
     @DeleteMapping(value = &quot;/film/{filmId}/user/{userId}&quot;)
-    public ResponseEntity&lt;Boolean&gt; deleteFilmScore(@PathVariable(value = &quot;filmId&quot;) Integer filmId, @PathVariable(value = &quot;userId&quot;) Integer userId) {
-<span class="nc" id="L71">        HttpHeaders headers = new HttpHeaders();</span>
-<span class="nc" id="L72">        headers.add(&quot;Access-Control-Request-Method&quot;, &quot;*&quot;);</span>
-<span class="nc" id="L73">        repo.deleteUserRating(filmId, userId);</span>
-<span class="nc" id="L74">        return ResponseEntity.ok().headers(headers).body(true);</span>
+    public ResponseEntity&lt;Boolean&gt; deleteFilmScore(@PathVariable(value = &quot;filmId&quot;) Integer filmId, @PathVariable(value = &quot;userId&quot;) Integer userId) throws ServerException {
+<span class="fc" id="L87">        HttpHeaders headers = new HttpHeaders();</span>
+<span class="fc" id="L88">        headers.add(&quot;Access-Control-Request-Method&quot;, &quot;*&quot;);</span>
+        //repo.deleteUserRating(filmId, userId);
+<span class="fc" id="L90">        FilmScore fs = repo.getSingleUserRating(filmId, userId);</span>
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">        if (fs == null) throw new ServerException(&quot;Not found&quot;);</span>
+<span class="fc" id="L92">        repo.delete(fs);</span>
+
+<span class="fc" id="L94">        return ResponseEntity.ok().headers(headers).body(true);</span>
     }
 
     @GetMapping(&quot;/user/{userId}&quot;)
     public @ResponseBody Iterable&lt;FilmScore&gt; findUserRatings(@PathVariable(value = &quot;userId&quot;) Integer userId) {
-<span class="nc" id="L79">        return repo.findUserRatings(userId);</span>
+<span class="nc" id="L99">        return repo.findUserRatings(userId);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
